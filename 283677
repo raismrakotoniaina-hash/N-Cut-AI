@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>N Cut AI</title
+<link rel="manifest" href="manifest.json">
+</style>
+<style>
+
+button {
+  width: 90%;
+}
+
+textarea {
+  width: 90%;
+  height: 120px;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 15px;
+  border: none;
+  background: #0f172a;
+  color: white;
+  font-size: 16px;
+}
+
+</style>
+</style>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+<div class="header">
+<div class="logo">🎬 N Cut AI</div>
+<p class="subtitle">
+Professional AI Video Generator
+</p>
+</div>
+
+
+<div class="card">
+
+<h2>Create Video</h2><textarea id="prompt" placeholder="Soraty eto ny hevitrao ho an'ny vidéo AI..."></textarea>
+<button onclick="generateVideo()">
+🚀 Generate Video
+</button>
+
+<p id="status"></p>
+
+<video id="resultVideo" controls style="width:90%; display:none;"></video>
+
+<button> onclick="generateVideo()">
+✍️ Text To Video
+</button>
+
+</button>
+
+<button> onclick="imageVideo()">
+🖼️ Image To Video
+</button>
+</button>
+
+</div>
+
+
+<div class="footer">
+Powered by AI
+</div>
+<script src="script.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+</body>
+<h1>TEST N CUT AI</h1>
+</html>

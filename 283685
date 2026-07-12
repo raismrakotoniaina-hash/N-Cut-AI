@@ -1,0 +1,19 @@
+function generateVideo() {
+
+  let prompt = document.getElementById("prompt").value;
+  let status = document.getElementById("status");
+
+  if(prompt === "") {
+    status.innerHTML = "⚠️ Soraty aloha ny hevitrao";
+    return;
+  }
+
+  status.innerHTML = "⏳ Mamorona vidéo...";
+
+  setTimeout(function(){
+
+    status.innerHTML = "✅ Test vita! Vonona hampifandray AI isika.";
+
+  },3000);
+
+}

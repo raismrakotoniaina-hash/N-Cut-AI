@@ -1,0 +1,16 @@
+{
+  "name": "N Cut AI",
+  "short_name": "N Cut AI",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#00d9ff",
+  "description": "Professional AI Video Generator",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
