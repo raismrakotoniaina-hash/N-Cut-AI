@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>N-Cut AI Malagasy</title>
+<title>N-Cut AI Video Generator</title>
 
 <style>
 body {
@@ -19,23 +19,28 @@ body {
     background:#222;
     padding:20px;
     border-radius:12px;
-    max-width:400px;
+    max-width:450px;
     margin:auto;
 }
 
-textarea {
+select, textarea {
     width:90%;
-    height:100px;
-    padding:10px;
+    padding:12px;
+    margin-top:10px;
     border-radius:8px;
     background:#333;
     color:white;
+    border:1px solid #555;
+}
+
+textarea {
+    height:100px;
 }
 
 button {
     width:100%;
     padding:15px;
-    margin-top:10px;
+    margin-top:15px;
     background:#e91e63;
     color:white;
     border:0;
@@ -67,11 +72,53 @@ N-CUT AI
 </h2>
 
 <p>
-AI Video Generator Malagasy
+🌍 AI Video Generator
 </p>
 
-<textarea id="prompt" 
-placeholder="Soraty ny hevitrao eto... Ohatra: Olona Malagasy iray miarahaba eny Antananarivo">
+
+<h4>👤 Safidio Avatar</h4>
+
+<select id="avatar">
+<option value="malagasy_female">
+🇲🇬 Vehivavy Malagasy mpanolotra vaovao
+</option>
+
+<option value="malagasy_male">
+🇲🇬 Lehilahy Malagasy
+</option>
+
+<option value="foreign_female">
+🌍 Vehivavy vahiny mpanolotra
+</option>
+
+<option value="foreign_male">
+🌍 Lehilahy vahiny
+</option>
+
+</select>
+
+
+<h4>🗣️ Safidio fiteny</h4>
+
+<select id="language">
+
+<option value="mg">
+🇲🇬 Malagasy
+</option>
+
+<option value="fr">
+🇫🇷 Français
+</option>
+
+<option value="en">
+🇬🇧 English
+</option>
+
+</select>
+
+
+<textarea id="prompt"
+placeholder="Soraty ny hevitrao eto...">
 </textarea>
 
 
