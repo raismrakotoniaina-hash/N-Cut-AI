@@ -61,7 +61,23 @@ ${prompt}
       video: output
     });
 
-  } catch(error) {
+    } catch(error) {
+
+    console.log("Replicate Error:", error.message);
+
+    if (
+      error.message.includes("402") ||
+      error.message.includes("Free time limit reached")
+    ) {
+
+      return res.json({
+        success: true,
+        demo: true,
+        video: "demo-video.mp4",
+        message: "N-Cut AI Demo Mode activated"
+      });
+
+    }
 
     res.json({
       success: false,
