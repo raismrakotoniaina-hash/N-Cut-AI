@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const Replicate = require("replicate");
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("."));
 
@@ -12,58 +14,64 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
-
 
 app.post("/generate-video", async (req, res) => {
 
   try {
 
-    let { prompt } = req.body;
+    let { prompt, avatar, language } = req.body;
 
+    if (!prompt) {
+      return res.json({
+        success: false,
+        error: "Tsy misy prompt"
+      });
+    }
 
-    // Fanatsarana prompt ho an'ny olona Malagasy
-    prompt = `
-A realistic Malagasy person from Madagascar.
-Natural Malagasy facial features.
-Speaking fluent Malagasy language.
-Cinematic realistic video.
-High quality.
+    let finalPrompt = `
+Realistic human video.
+High quality cinematic style.
+Natural facial features.
+Professional AI presenter.
+
+Avatar:
+${avatar || "realistic person"}
+
+Language:
+${language || "Malagasy"}
+
+Scene:
 ${prompt}
 `;
-
 
     const output = await replicate.run(
       "minimax/video-01",
       {
         input: {
-          prompt: prompt
+          prompt: finalPrompt
         }
       }
     );
 
-
     res.json({
-      success:true,
+      success: true,
       video: output
     });
 
-
-  } catch(error){
+  } catch(error) {
 
     res.json({
-      success:false,
-      error:error.message
+      success: false,
+      error: error.message
     });
 
   }
 
 });
 
-
-app.listen(3000, ()=>{
- console.log("N-Cut AI Server running on port 3000");
+app.listen(3000, () => {
+  console.log("N-Cut AI Server running on port 3000");
 });
