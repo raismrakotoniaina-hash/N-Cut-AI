@@ -108,3 +108,14 @@ async function handleLocalVideo(input) {
         // Eto dia mbola Preview fotsiny fa afaka asiana AI filter avy eo
     }
 }
+// Ity dia mampiasa ny API Google Translate maimaim-poana
+async function translateToEnglish(text) {
+    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=mg&tl=en&dt=t&q=${encodeURI(text)}`);
+    const data = await res.json();
+    return data[0][0][0]; // Ity no mamoaka ilay teny anglisy
+}
+
+// Avy eo, ao anatin'ny genBtn.onclick, soloy an'ity ny andalana voalohany:
+const malagasyText = prompt.value;
+const englishText = await translateToEnglish(malagasyText);
+// Dia ilay englishText no alefa any amin'ny AI...
