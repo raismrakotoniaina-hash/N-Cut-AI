@@ -70,3 +70,41 @@ async function showResult(fileName) {
         a.click();
     };
         }
+// Mampifandray ny bokotra GENERATE VIDEO
+document.getElementById('generate-btn').onclick = async () => {
+    const text = promptInput.value;
+    if (!text) {
+        alert("⚠️ Manorata hevitra na 'Prompt' ao amin'ny faritra fanoratana aloha!");
+        return;
+    }
+
+    try {
+        await loadEngine();
+        status.innerText = "🚀 AI eo am-pamoronana ny video-nao (Miandry kely)...";
+        
+        // Ity baiko ity dia mamorona video avy amin'ny soratrao
+        // Mampiasa resolution 640x360 ho an'ny Honor 8X
+        await ffmpeg.run(
+            '-f', 'lavfi', '-i', 'color=c=0x1e293b:s=640x360:d=4', 
+            '-vf', `drawtext=text='${text}':fontcolor=white:fontsize=30:x=(w-text_w)/2:y=(h-text_h)/2:box=1:boxcolor=black@0.5`,
+            'generated.mp4'
+        );
+
+        showResult('generated.mp4');
+        status.innerText = "✅ Video vao namboarinao dia vonona!";
+    } catch (e) {
+        status.innerText = "❌ Hadisoana: " + e.message;
+        alert("Nisy olana: " + e.message);
+    }
+};
+
+// Function hanapahana video avy amin'ny finday (Local Video Edit)
+async function handleLocalVideo(input) {
+    const file = input.files[0];
+    if(file) {
+        status.innerText = "📁 Video avy ao amin'ny finday voafidy.";
+        resultVideo.src = URL.createObjectURL(file);
+        resultVideo.style.display = "block";
+        // Eto dia mbola Preview fotsiny fa afaka asiana AI filter avy eo
+    }
+}
