@@ -30,27 +30,30 @@
 </div>
 
 <div class="card">
-    <p id="status">⏳ Miandry ny script...</p>
+    <p id="status">✅ System Ready</p>
     
     <textarea id="prompt" placeholder="Soraty eto ny hevitrao ho an'ny vidéo AI..."></textarea>
     
     <div class="btn-group">
-        <!-- 1. Text to Video -->
-        <button id="txt-vid-btn" class="btn-main">✍️ Text to Video</button>
+        <!-- BOKOTRA GENERATE (Ilay lehibe indrindra) -->
+        <button id="generate-btn" class="btn-main" style="background: linear-gradient(45deg, #f59e0b, #d97706); margin-bottom: 15px; font-size: 18px;">
+            🚀 GENERATE VIDEO
+        </button>
+
+        <hr style="border: 0.5px solid #334155; width: 100%; margin: 10px 0;">
+
+        <!-- Safidy hafa -->
+        <button id="txt-vid-btn" class="btn-sec">✍️ Text to Video (Quick)</button>
         
-        <!-- 2. Image to Video -->
         <input type="file" id="img-input" accept="image/*" style="display:none;">
         <button onclick="document.getElementById('img-input').click()" class="btn-sec">🖼️ Image to Video</button>
         
-        <!-- 3. Safidio ny Video -->
-        <input type="file" id="vid-input" accept="video/*" style="display:none;">
+        <input type="file" id="vid-input" accept="video/*" style="display:none;" onchange="handleLocalVideo(this)">
         <button onclick="document.getElementById('vid-input').click()" class="btn-sec">📁 Edit Local Video</button>
     </div>
 
     <!-- Preview -->
     <video id="resultVideo" controls style="display:none;"></video>
-    
-    <!-- Download Button -->
     <button id="download-btn" style="display:none; background:#10b981; margin-top:10px; width:100%;">📥 Download Video</button>
 </div>
 
