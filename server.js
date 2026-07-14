@@ -56,10 +56,12 @@ ${prompt}
       }
     );
 
-    res.json({
-      success: true,
-      video: output
-    });
+    console.log("VIDEO OUTPUT:", output);
+
+res.json({
+  success: true,
+  video: output
+});
 
     } catch(error) {
 
