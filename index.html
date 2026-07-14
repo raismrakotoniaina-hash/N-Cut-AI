@@ -1,72 +1,62 @@
-
 <!DOCTYPE html>
-<html lang="mg">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Malagasy Video Generator</title>
+    <!-- 1. ANARANA EO AMBONY -->
+    <title>N-Cut AI Malagasy</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; padding: 20px; text-align: center; }
-        .container { max-width: 500px; margin: auto; background: #1e1e1e; padding: 20px; border-radius: 15px; }
-        textarea { width: 100%; height: 80px; border-radius: 8px; border: none; padding: 10px; margin-bottom: 10px; }
-        button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #007bff; color: white; font-weight: bold; cursor: pointer; margin: 5px 0; }
+        body { background: #121212; color: #fff; font-family: sans-serif; padding: 20px; text-align: center; }
+        .box { background: #222; padding: 20px; border-radius: 12px; max-width: 400px; margin: auto; border: 1px solid #333; }
+        textarea { width: 90%; height: 70px; margin-bottom: 10px; border-radius: 8px; padding: 10px; border: 1px solid #444; background: #333; color: white; }
+        button { background: #e91e63; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
         button:disabled { background: #555; }
-        #status { margin: 15px 0; font-size: 0.9em; color: #bbb; }
-        video { width: 100%; border-radius: 10px; display: none; margin-top: 15px; background: black; }
-        .ads-box { margin-top: 20px; padding: 10px; border: 1px dashed #555; font-size: 0.8em; }
+        #status { margin-top: 15px; color: #ffeb3b; font-size: 14px; }
+        video { width: 100%; display: none; margin-top: 15px; border-radius: 10px; background: #000; }
+        .footer { margin-top: 20px; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>AI Video Malagasy</h2>
-    <p>Soraty izay tianao ho hita (ohatra: "A lemur in a Malagasy forest")</p>
+<div class="box">
+    <!-- 2. ANARANA EO AMIN'NY INTERFACE -->
+    <h2 style="color: #e91e63;">N-CUT AI</h2>
+    <p style="font-size: 13px; color: #bbb;">Mpamadika soratra ho horonantsary</p>
     
-    <textarea id="prompt" placeholder="Manorata eto..."></textarea>
+    <textarea id="prompt" placeholder="Ohatra: A beautiful sunrise in Madagascar..."></textarea>
     
-    <button id="gen-btn">⚡ GENERATE VIDEO (AI)</button>
+    <button id="gen-btn">GÉNÉRER VIDEO</button>
     
-    <div id="status">Vonona...</div>
+    <div id="status">Vonona ny mpamokatra...</div>
     
     <video id="resultVideo" controls></video>
-    
-    <button id="download-btn" style="display:none; background: #28a745;">📥 Ampidino ny Video</button>
 
-    <div class="ads-box" id="ads-section">
-        <p>Mila credit? Mijery Pub hahazoana 1 Free Video</p>
-        <button onclick="showFakeAd()" style="background: #6c757d;">📺 Mijery Pub</button>
-    </div>
+    <!-- Bokotra fampidinana (download) -->
+    <button id="dl-btn" style="display:none; background: #2196f3; margin-top: 10px;">📥 AMPIDINO NY VIDEO</button>
 </div>
 
-<script>
-    // --- 1. CONFIGURATION ---
-    // SOLOY NY TOKEN-NAO AVY ANY AMIN'NY HUGGING FACE ETO
-    const HF_TOKEN = "HF_ASIANO_NY_TOKEN_NAO_ETO"; 
-    const AI_MODEL = "damo-vilab/model-scope-text-to-video";
+<div class="footer">N-Cut v1.0 - Malagasy AI Project</div>
 
+<script>
+    const HF_TOKEN = "HF_TOKEN_NAO_ETO"; // Soloy ny Token-nao
     const genBtn = document.getElementById('gen-btn');
+    const dlBtn = document.getElementById('dl-btn');
     const status = document.getElementById('status');
     const resultVideo = document.getElementById('resultVideo');
     const promptInput = document.getElementById('prompt');
-    const dlBtn = document.getElementById('download-btn');
 
-    let credits = 0; // Ohatra amin'ny rafitra credit
-
-    // --- 2. FONCTION TEXT-TO-VIDEO ---
     genBtn.onclick = async () => {
         const text = promptInput.value;
-        if (!text) { alert("Manorata hafatra kely aloha!"); return; }
-        
-        // Fanamarihana: Eto ianao afaka manisy "Translator" raha teny malagasy madiodio no fidirana
-        
+        if (!text) { alert("Manorata zavatra aloha!"); return; }
+
+        status.innerText = "⏳ N-CUT AI eo am-piasana... (Miandrasa kely)";
         genBtn.disabled = true;
-        status.innerText = "⏳ Mifandray amin'ny AI (mety haharitra 30s-1mn)...";
         resultVideo.style.display = "none";
         dlBtn.style.display = "none";
 
         try {
             const response = await fetch(
-                `https://api-inference.huggingface.co/models/${AI_MODEL}`,
+                "https://api-inference.huggingface.co/models/damo-vilab/model-scope-text-to-video",
                 {
                     headers: { 
                         Authorization: `Bearer ${HF_TOKEN}`,
@@ -77,45 +67,30 @@
                 }
             );
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Busy ny AI na diso ny Token.");
-            }
+            if (!response.ok) throw new Error("Feno ny server na diso ny Token.");
 
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
 
-            // Mampiseho ny valiny
             resultVideo.src = url;
             resultVideo.style.display = "block";
             status.innerText = "✅ Vita soa aman-tsara!";
-            
-            // Fandaharana ny bokotra ampidirina
+
+            // 3. ANARANA REHEFA AMPIDININA (DOWNLOAD)
             dlBtn.style.display = "block";
             dlBtn.onclick = () => {
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'ai-video-malagasy.mp4';
+                a.download = 'n-cut-ai-video.mp4'; // Eto no ovana ny anaran'ny rakitra (file)
                 a.click();
             };
 
         } catch (e) {
             status.innerText = "❌ Hadisoana: " + e.message;
-            console.error(e);
         } finally {
             genBtn.disabled = false;
         }
     };
-
-    // --- 3. LOGIC AMIN'NY DOKAMBAROTRA (SIMULATION) ---
-    function showFakeAd() {
-        status.innerText = "📺 Mandray dokambarotra... (Simulation)";
-        setTimeout(() => {
-            alert("Misaotra nijery! Nahazo '1 Free Credit' ianao.");
-            credits += 1;
-            status.innerText = `Anananao: ${credits} credit(s)`;
-        }, 5000); // 5 segondra ohatra
-    }
 </script>
 
 </body>
