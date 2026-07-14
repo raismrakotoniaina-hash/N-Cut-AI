@@ -23,7 +23,7 @@ body {
     margin:auto;
 }
 
-select, textarea {
+textarea, select, input {
     width:90%;
     padding:12px;
     margin-top:10px;
@@ -59,6 +59,13 @@ video {
     border-radius:10px;
     display:none;
 }
+
+.image-box {
+    margin-top:15px;
+    padding:10px;
+    border:1px solid #444;
+    border-radius:10px;
+}
 </style>
 
 </head>
@@ -71,14 +78,34 @@ video {
 N-CUT AI
 </h2>
 
-<p>
-🌍 AI Video Generator
-</p>
+<p>🌍 AI Video Generator</p>
 
 
-<h4>👤 Safidio Avatar</h4>
+<h4>Mode Video</h4>
+
+<select id="mode">
+<option value="text">✍️ Text To Video</option>
+<option value="image">🖼️ Image To Video</option>
+</select>
+
+
+<div class="image-box">
+
+<h4>🖼️ Ampidiro sary (max 3)</h4>
+
+<input type="file" id="image1" accept="image/*">
+
+<input type="file" id="image2" accept="image/*">
+
+<input type="file" id="image3" accept="image/*">
+
+</div>
+
+
+<h4>👤 Avatar</h4>
 
 <select id="avatar">
+
 <option value="malagasy_female">
 🇲🇬 Vehivavy Malagasy mpanolotra vaovao
 </option>
@@ -88,7 +115,7 @@ N-CUT AI
 </option>
 
 <option value="foreign_female">
-🌍 Vehivavy vahiny mpanolotra
+🌍 Vehivavy vahiny
 </option>
 
 <option value="foreign_male">
@@ -98,7 +125,7 @@ N-CUT AI
 </select>
 
 
-<h4>🗣️ Safidio fiteny</h4>
+<h4>🗣️ Fiteny</h4>
 
 <select id="language">
 
