@@ -34,7 +34,7 @@ app.post("/generate-video", async (req, res) => {
 
 
     const result = await fal.subscribe(
-      "fal-ai/kling-video/v3/pro/text-to-video",
+      "fal-ai/kling-video/v3/standard/text-to-video",
       {
         input:{
           prompt: `
